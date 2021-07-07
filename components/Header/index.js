@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { BsSearch } from 'react-icons/bs';
 import { BiShare } from 'react-icons/bi';
 import { useEffect } from 'react';
+import Head from 'next/head';
 
 export function Header() {
   let shareNavigator = () => {
@@ -22,8 +23,21 @@ export function Header() {
       };
     }
   }, []);
+
   return (
     <header className="border-bottom shadow fixed-top bg-white">
+      <Head>
+        <script
+          data-ad-client="ca-pub-7540935582112706"
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+        ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(adsbygoogle = window.adsbygoogle || []).push({ google_ad_client: "ca-pub-xxxxxx", enable_page_level_ads: true });`,
+          }}
+        />
+      </Head>
       <nav className="navbar container navbar-expand-sm navbar-light">
         <div className="container-fluid align-items-center">
           <Link className="navbar-brand" href="/">

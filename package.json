@@ -16,6 +16,7 @@
     "next-connect": "0.9.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
+    "react-hook-form": "^7.10.1",
     "react-icons": "4.2.0",
     "redoc": "2.0.0-rc.53",
     "sass": "1.32.12",
