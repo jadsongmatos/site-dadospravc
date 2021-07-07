@@ -10,6 +10,7 @@ export function Header() {
     console.log('Não está disponivel');
   };
   useEffect(() => {
+    const adsbygoogle = window.adsbygoogle || [];
     if (window.navigator.share) {
       shareNavigator = () => {
         window.navigator
@@ -22,6 +23,10 @@ export function Header() {
           .catch((error) => console.error('Error sharing', error));
       };
     }
+    adsbygoogle.push({
+      google_ad_client: 'ca-pub-7540935582112706',
+      enable_page_level_ads: true,
+    });
   }, []);
 
   return (
@@ -31,11 +36,6 @@ export function Header() {
           data-ad-client="ca-pub-7540935582112706"
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-        ></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(adsbygoogle = window.adsbygoogle || []).push({ google_ad_client: "ca-pub-xxxxxx", enable_page_level_ads: true });`,
-          }}
         />
       </Head>
       <nav className="navbar container navbar-expand-sm navbar-light">
@@ -56,7 +56,7 @@ export function Header() {
               <BsSearch color="#1A2E46" />
             </div>
           </Link>
-          <button className="btn" onClick={shareNavigator}>
+          <button type="button" className="btn" onClick={shareNavigator}>
             <BiShare />
           </button>
         </div>

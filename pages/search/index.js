@@ -1,11 +1,11 @@
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import Head from 'next/head';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 export default function Search() {
-  const { register, handleSubmit } = useForm();
+  const { handleSubmit } = useForm();
   const [data, setData] = useState({});
 
   const onSubmit = async () => {
@@ -28,16 +28,18 @@ export default function Search() {
               className="col-lg-6 mx-auto mt-5"
               onSubmit={handleSubmit(onSubmit)}
             >
-              <label className="form-label">Procura</label>
-              <input
-                className="form-control"
-                list="databases"
-                placeholder="Escolha um conjunto de dados"
-                onChange={(e) => {
-                  setData({ ...data, ...{ db: e.target.value } });
-                  console.log(e.target.value);
-                }}
-              />
+              <label htmlFor="databases" className="form-label">
+                Procura
+                <input
+                  className="form-control"
+                  list="databases"
+                  placeholder="Escolha um conjunto de dados"
+                  onChange={(e) => {
+                    setData({ ...data, ...{ db: e.target.value } });
+                    console.log(e.target.value);
+                  }}
+                />
+              </label>
               <datalist id="databases">
                 <option value="cnpj">CNPJ</option>
               </datalist>
