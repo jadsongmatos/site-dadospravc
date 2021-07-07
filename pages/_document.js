@@ -30,6 +30,13 @@ export default class MyDocument extends Document {
           />
 
           <link rel="shortcut icon" href="/favicon.png" type="image/png" />
+
+          {/* Google Adsense */}
+          <script
+            data-ad-client="ca-pub-7540935582112706"
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+          />
         </Head>
 
         <body>
