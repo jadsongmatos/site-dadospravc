@@ -3,13 +3,48 @@ import { Footer } from '@/components/Footer';
 import Head from 'next/head';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import axios from 'axios';
 
 export default function Search() {
-  const { handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm();
   const [data, setData] = useState({});
+  const [resutl, setResult] = useState();
+  const [loading, setLoad] = useState(false);
+  const [database] = useState([
+    {
+      name: 'CNPJ',
+      url: 'cnpj/v1',
+      inputSearch: 'Procurar CNPJ pelo razão social',
+      comments: `Quando uma palavra contém o asterisco (*), ela corresponderá a
+      qualquer empresa que comece com a essa palavra. Quando não
+      quiser não procurar por uma palavra pode usar (NOT) antes.
+      Quando tiver na duvida entre duas palavras pode usar (OR) antes.
+      Para ver outros atalhos acesse documentação fts5 do sqlite.`,
+    },
+  ]);
+  const cancelTokenSource = axios.CancelToken.source();
 
-  const onSubmit = async () => {
+  const onSubmit = (e) => {
+    setLoad(true);
+    console.log(e);
     console.log(data);
+
+    axios
+      .get(`/api/${data.url}/${e.search}`, {
+        cancelToken: cancelTokenSource.token,
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.data) {
+          setResult(response.data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setLoad(false);
+      });
   };
   return (
     <>
@@ -28,26 +63,91 @@ export default function Search() {
               className="col-lg-6 mx-auto mt-5"
               onSubmit={handleSubmit(onSubmit)}
             >
-              <label htmlFor="databases" className="form-label">
-                Procura
+              <label
+                htmlFor="databases"
+                className="form-control form-label border-0"
+              >
+                Escolha a baixo um conjuto de dados
                 <input
-                  className="form-control"
+                  className="form-control mt-3"
                   list="databases"
                   placeholder="Escolha um conjunto de dados"
                   onChange={(e) => {
-                    setData({ ...data, ...{ db: e.target.value } });
-                    console.log(e.target.value);
+                    database.forEach((db) => {
+                      if (db.name === e.target.value) {
+                        setData({ ...data, ...db });
+                      }
+                    });
                   }}
                 />
               </label>
               <datalist id="databases">
-                <option value="cnpj">CNPJ</option>
+                {database.map((e) => {
+                  return (
+                    <option key={e.name} value={e.name}>
+                      {e.name}
+                    </option>
+                  );
+                })}
               </datalist>
-              <div className="d-grid gap-2 col-6 mx-auto mt-5">
-                <button type="submit" className="btn btn-primary">
-                  Salvar
-                </button>
-              </div>
+              {data.name ? (
+                <>
+                  <label
+                    htmlFor="inputSearch"
+                    className="form-control form-label border-0 mt-4"
+                  >
+                    {data.inputSearch}
+                    <input
+                      type="text"
+                      id="inputSearch"
+                      className="form-control mt-3"
+                      aria-describedby="comments"
+                      {...register('search')}
+                    />
+                  </label>
+                  <p id="comments" className="form-text mt-3">
+                    {data.comments}
+                  </p>
+                  <div className="d-grid gap-2 col-6 mx-auto mt-5">
+                    {loading ? (
+                      <>
+                        <h3>Carregando...</h3>
+                        <button
+                          type="button"
+                          onClick={cancelTokenSource.cancel()}
+                          className="btn btn-primary"
+                        >
+                          Cancelar
+                        </button>
+                      </>
+                    ) : (
+                      <button type="submit" className="btn btn-primary">
+                        Pesquisar
+                      </button>
+                    )}
+                  </div>
+                  {resutl ? (
+                    <div className="mt-5">
+                      <h2>Resultados</h2>
+                      <ol className="list-group list-group-flush text-start list-group-numbered">
+                        {resutl.map((e, i) => {
+                          if (i < 18) {
+                            return (
+                              <li className="list-group-item">
+                                <div className="ms-2 me-auto">
+                                  <p>{`CNPJ: ${e[0]}`}</p>
+                                  {`Razão social: ${e[1]}`}
+                                </div>
+                              </li>
+                            );
+                          }
+                          return null;
+                        })}
+                      </ol>
+                    </div>
+                  ) : null}
+                </>
+              ) : null}
             </form>
           </section>
         </div>
