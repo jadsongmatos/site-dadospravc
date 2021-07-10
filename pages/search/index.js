@@ -34,7 +34,6 @@ export default function Search() {
         cancelToken: cancelTokenSource.token,
       })
       .then((response) => {
-        console.log(response);
         if (response.data) {
           setResult(response.data);
         }

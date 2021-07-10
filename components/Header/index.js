@@ -2,24 +2,25 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { BsSearch } from 'react-icons/bs';
 import { BiShare } from 'react-icons/bi';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export function Header() {
-  let shareNavigator = () => {
+  const [shareNavigator, setShareNavigator] = useState(() => {
     console.log('Não está disponivel');
-  };
+  });
+
   useEffect(() => {
     if (window.navigator.share) {
-      shareNavigator = () => {
+      setShareNavigator(() => {
         window.navigator
           .share({
             title: 'Dados pra vocé',
-            text: 'Procurando algum dado ?',
+            text: 'Procurando algo ?',
             url: 'link',
           })
           .then(() => console.log('Successful share'))
           .catch((error) => console.error('Error sharing', error));
-      };
+      });
     }
   }, []);
 
@@ -43,7 +44,13 @@ export function Header() {
               <BsSearch color="#1A2E46" />
             </div>
           </Link>
-          <button type="button" className="btn" onClick={shareNavigator}>
+          <button
+            type="button"
+            className="btn"
+            onClick={() => {
+              shareNavigator();
+            }}
+          >
             <BiShare />
           </button>
         </div>

@@ -28,6 +28,17 @@ export default function Index() {
               </Link>
             </div>
           </section>
+          <section className="px-4 py-5 my-5 text-center shadow rounded-3">
+            <h1 className="display-5 fw-bold">Vocé tem algum dado ?</h1>
+            <div className="col-lg-6 mx-auto">
+              <p id="experiencia" className="lead mb-4">
+                Monetize agora seus dados
+              </p>
+              <Link href="https://api.whatsapp.com/send?phone=5551935051715&text=Ol%C3%A1%2C%20vim%20atrav%C3%A9s%20do%20site%20">
+                <p className="btn btn-primary btn-lg">Entrar em contato</p>
+              </Link>
+            </div>
+          </section>
         </div>
       </main>
 
