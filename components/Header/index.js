@@ -27,7 +27,7 @@ export function Header() {
   return (
     <header className="border-bottom shadow fixed-top bg-white">
       <nav className="navbar container navbar-expand-sm navbar-light">
-        <div className="container-fluid align-items-center">
+        <div className="container-fluid">
           <Link className="navbar-brand" href="/">
             <Image
               loading="lazy"
@@ -38,8 +38,8 @@ export function Header() {
               height="32px"
             />
           </Link>
-          <Link href="/search" style={{}} className="align-middle">
-            <p>
+          <Link href="/search">
+            <p className="m-0" style={{ cursor: 'pointer' }}>
               {'Procurar '}
               <BsSearch color="#1A2E46" />
             </p>
@@ -47,6 +47,7 @@ export function Header() {
           <button
             type="button"
             className="btn"
+            style={{ width: '127px' }}
             onClick={() => {
               shareNavigator();
             }}
