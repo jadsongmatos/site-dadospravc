@@ -28,6 +28,7 @@ export default function Search() {
     setLoad(true);
     console.log(e);
     console.log(data);
+    setResult([]);
 
     axios
       .get(`/api/${data.url}/${e.search}`, {

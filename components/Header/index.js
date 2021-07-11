@@ -31,18 +31,18 @@ export function Header() {
           <Link className="navbar-brand" href="/">
             <Image
               loading="lazy"
-              type="image/ico"
-              src="/favicon.ico"
+              type="image/png"
+              src="/dados-pra-vc.png"
               alt="link dadospravc"
-              width="32px"
+              width="127px"
               height="32px"
             />
           </Link>
-          <Link href="/search">
-            <div>
-              <span className="mx-2">Procurar </span>
+          <Link href="/search" style={{}} className="align-middle">
+            <p>
+              {'Procurar '}
               <BsSearch color="#1A2E46" />
-            </div>
+            </p>
           </Link>
           <button
             type="button"

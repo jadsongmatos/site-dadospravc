@@ -7,7 +7,7 @@ export function Footer() {
       <section className="col-6 mx-auto text-center">
         <Link href="https://github.com/slender1808/site-dadospravc">
           <p className="fs-5">
-            Participe
+            {'Participe  '}
             <FaGithub color="#1A2E46" />
           </p>
         </Link>
