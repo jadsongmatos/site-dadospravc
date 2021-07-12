@@ -56,7 +56,7 @@ export default function Search() {
         <div className="row mb-5">
           <section className="px-4 py-5 my-5 text-center shadow rounded-3">
             <h1 className="display-5 fw-bold">
-              O que extamento vocé procura ?
+              O que exatamente vocé procura ?
             </h1>
 
             <form
